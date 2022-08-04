@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 
 import React from 'react';
+import Carousel from './Carousel';
 
 const StyledDiv = styled('div')({
   backgroundImage: 'url(./CryptoPricesBanner.jpg)',
@@ -50,6 +51,7 @@ const Banner = () => {
             All the cryptocurrency data in one place
           </Typography>
         </StyledTagline>
+        <Carousel></Carousel>
       </StyledContainer>
     </StyledDiv>
   );
