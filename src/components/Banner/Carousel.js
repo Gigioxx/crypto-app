@@ -1,16 +1,9 @@
-import styled from '@emotion/styled';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import { Link } from 'react-router-dom';
 import { TrendingCoins } from '../../config/api';
 import { CryptoState } from '../../CryptoContext';
-
-const StyledDiv = styled('div')({
-  display: 'flex',
-  height: '50%',
-  alignItems: 'center',
-});
 
 export function numberWithCommas(number) {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -34,7 +27,7 @@ const Carousel = () => {
 
     return (
       <Link
-        to={`/coins/${coin.id}`}
+        to={`/coin/${coin.id}`}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -83,7 +76,7 @@ const Carousel = () => {
   };
 
   return (
-    <StyledDiv>
+    <div style={{ display: 'flex', height: '50%', alignItems: 'center' }}>
       <AliceCarousel
         mouseTracking
         infinite
@@ -95,7 +88,7 @@ const Carousel = () => {
         autoPlay
         items={items}
       />
-    </StyledDiv>
+    </div>
   );
 };
 
