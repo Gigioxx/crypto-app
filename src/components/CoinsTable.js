@@ -11,6 +11,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Pagination,
 } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -25,6 +26,7 @@ const CoinsTable = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState();
   const [isHovering, setIsHovering] = useState(false);
+  const [page, setPage] = useState(1);
 
   const handleMouseEnter = () => {
     setIsHovering(true);
@@ -103,76 +105,94 @@ const CoinsTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {handleSearch().map((row) => {
-                  const profit = row.price_change_percentage_24h > 0;
-                  return (
-                    <TableRow
-                      onClick={() => navigate(`/coin/${row.id}`)}
-                      key={row.name}
-                      style={{
-                        backgroundColor: isHovering ? '#131111' : '#16171a',
-                        cursor: 'pointer',
-                        fontFamily: 'Montserrat',
-                      }}
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      <TableCell
-                        component='th'
-                        scope='row'
+                {handleSearch()
+                  .slice((page - 1) * 10, (page - 1) * 10 + 10)
+                  .map((row) => {
+                    const profit = row.price_change_percentage_24h > 0;
+                    return (
+                      <TableRow
+                        onClick={() => navigate(`/coin/${row.id}`)}
+                        key={row.name}
                         style={{
-                          display: 'flex',
-                          gap: 15,
+                          backgroundColor: isHovering ? '#131111' : '#16171a',
+                          cursor: 'pointer',
+                          fontFamily: 'Montserrat',
                         }}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                       >
-                        <img
-                          src={row?.image}
-                          alt={row.name}
-                          height='50'
-                          style={{ marginBottom: 10 }}
-                        />
-                        <div
-                          style={{ display: 'flex', flexDirection: 'column' }}
+                        <TableCell
+                          component='th'
+                          scope='row'
+                          style={{
+                            display: 'flex',
+                            gap: 15,
+                          }}
                         >
-                          <span
-                            style={{
-                              textTransform: 'uppercase',
-                              fontSize: 22,
-                            }}
+                          <img
+                            src={row?.image}
+                            alt={row.name}
+                            height='50'
+                            style={{ marginBottom: 10 }}
+                          />
+                          <div
+                            style={{ display: 'flex', flexDirection: 'column' }}
                           >
-                            {row.symbol}
-                          </span>
-                          <span style={{ color: 'darkgrey' }}>{row.name}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell align='right'>
-                        {symbol}{' '}
-                        {numberWithCommas(row.current_price.toFixed(2))}
-                      </TableCell>
-                      <TableCell
-                        align='right'
-                        style={{
-                          color: profit > 0 ? '#90ee90' : '#FF7F7F',
-                          fontWeight: 500,
-                        }}
-                      >
-                        {profit && '+'}
-                        {row.price_change_percentage_24h.toFixed(2)}%
-                      </TableCell>
-                      <TableCell align='right'>
-                        {symbol}{' '}
-                        {numberWithCommas(
-                          row.market_cap.toString().slice(0, -6)
-                        )}
-                        M
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                            <span
+                              style={{
+                                textTransform: 'uppercase',
+                                fontSize: 22,
+                              }}
+                            >
+                              {row.symbol}
+                            </span>
+                            <span style={{ color: 'darkgrey' }}>
+                              {row.name}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell align='right'>
+                          {symbol}{' '}
+                          {numberWithCommas(row.current_price.toFixed(2))}
+                        </TableCell>
+                        <TableCell
+                          align='right'
+                          style={{
+                            color: profit > 0 ? '#90ee90' : '#FF7F7F',
+                            fontWeight: 500,
+                          }}
+                        >
+                          {profit && '+'}
+                          {row.price_change_percentage_24h.toFixed(2)}%
+                        </TableCell>
+                        <TableCell align='right'>
+                          {symbol}{' '}
+                          {numberWithCommas(
+                            row.market_cap.toString().slice(0, -6)
+                          )}
+                          M
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           )}
         </TableContainer>
+        <Pagination
+          style={{
+            padding: 20,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          color='secondary'
+          count={parseInt((handleSearch()?.length / 10).toFixed(0))}
+          onChange={(_, value) => {
+            setPage(value);
+            window.scroll(0, 450);
+          }}
+        />
       </Container>
     </ThemeProvider>
   );
