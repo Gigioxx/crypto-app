@@ -53,6 +53,9 @@ const CoinsTable = () => {
     palette: {
       mode: 'dark',
     },
+    typography: {
+      fontFamily: 'Montserrat',
+    },
   });
 
   const handleSearch = () => {
