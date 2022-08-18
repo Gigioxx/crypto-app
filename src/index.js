@@ -5,6 +5,8 @@ import App from './App';
 import CryptoContext from './CryptoContext';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './Pages/CoinPage/CoinPage.css';
+import './components/CoinInfo/CoinInfo.css';
+import './components/SelectButton/SelectButton.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
