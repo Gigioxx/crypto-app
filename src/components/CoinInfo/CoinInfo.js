@@ -11,6 +11,8 @@ import {
   LinearScale,
   Title,
   CategoryScale,
+  Tooltip,
+  Legend,
 } from 'chart.js';
 import { chartDays } from '../../config/chartDays';
 import SelectButton from '../SelectButton/SelectButton';
@@ -41,12 +43,16 @@ const CoinInfo = ({ coin }) => {
     },
   });
 
+  const cryptoName = coin.id.charAt(0).toUpperCase() + coin.id.slice(1);
+
   ChartJS.register(
     LineElement,
     PointElement,
     LinearScale,
     Title,
-    CategoryScale
+    CategoryScale,
+    Tooltip,
+    Legend
   );
 
   return (
@@ -76,8 +82,8 @@ const CoinInfo = ({ coin }) => {
 
                   datasets: [
                     {
-                      data: historicData.map((coin) => coin[1]),
                       label: `Price ( Past ${days} Days ) in ${currency}`,
+                      data: historicData.map((coin) => coin[1]),
                       borderColor: '#6667AB',
                     },
                   ],
@@ -86,6 +92,12 @@ const CoinInfo = ({ coin }) => {
                   elements: {
                     point: {
                       radius: 1,
+                    },
+                  },
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: `${cryptoName}`,
                     },
                   },
                 }}
