@@ -76,7 +76,10 @@ const CoinInfo = ({ coin }) => {
                     let time =
                       date.getHours() > 12
                         ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                        : `${date.getHours()}:${date.getMinutes()} AM`;
+                        : `${date.getHours()}:${
+                            (date.getMinutes() < 10 ? '0' : '') +
+                            date.getMinutes()
+                          } AM`;
                     return days === 1 ? time : date.toLocaleDateString();
                   }),
 
