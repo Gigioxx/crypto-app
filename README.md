@@ -2,6 +2,10 @@
 
 Crypto website that shows cryptocurrency prices
 
+## Deployed proyect
+
+https://crypto-value.netlify.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
