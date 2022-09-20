@@ -1,6 +1,6 @@
 # CryptoApp
 
-Crypto website that shows cryptocurrency prices
+Crypto website that shows cryptocurrency prices, using CoinGecko API.
 
 ## Deployed proyect
 
